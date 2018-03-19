@@ -29,17 +29,29 @@ namespace GoogleCloudSamples
             DatastoreDb db = DatastoreDb.Create(projectId);
 
             // The kind for the new entity
-            string kind = "Task";
+            string kind = "book_shengxu";
             // The name/ID for the new entity
-            string name = "sampletask1";
+            string article_id = "6290265";
             KeyFactory keyFactory = db.CreateKeyFactory(kind);
             // The Cloud Datastore key for the new entity
-            Key key = keyFactory.CreateKey(name);
+            Key key = keyFactory.CreateKey(article_id);
 
+            var contenttmp = @"这才多长时间过去，当年那个都不曾被他们注意、没有放在眼中的小土著，竟在短短的一年内从圣者层次突破到神级领域，位列神将之巅，震撼人心。
+
+他们惶恐了，这种进化速度就是在阳间也吓死人，除非古代那几个特殊时期，不然的话怎能出现？
+
+在阴间宇宙中，法则不全，天地残缺，此外还有“天花板”，最高不过映照级，他居然能走到这一步，逆天了吗？
+
+噗！
+
+楚风的剑翼扇动，如同一个十二羽翼的神王，呼啸天地间，再次将一位神祇的头颅斩落，根本就没有人能挡住他。";
             var task = new Entity
             {
                 Key = key,
-                ["description"] = "Buy milk"
+                ["url"] = "https://www.piaotian.com/html/8/8253/6290265.html",
+                ["content"] = contenttmp,
+                ["create_date"] = DateTimeOffset.Now,
+                ["last_upate_date"] = DateTimeOffset.Now,
             };
             using (DatastoreTransaction transaction = db.BeginTransaction())
             {
@@ -47,7 +59,7 @@ namespace GoogleCloudSamples
                 transaction.Upsert(task);
                 transaction.Commit();
 
-                Console.WriteLine($"Saved {task.Key.Path[0].Name}: {(string)task["description"]}");
+                Console.WriteLine($"Saved {task.Key.Path[0].Name}: {(string)task["url"]}");
             }
         }
     }
