@@ -23,7 +23,7 @@ namespace GoogleCloudSamples
         public static void Main(string[] args)
         {
             // Your Google Cloud Platform project ID
-            string projectId = "book-196913";
+            string projectId = "czreadbook";
 
             // Instantiates a client
             DatastoreDb db = DatastoreDb.Create(projectId);
